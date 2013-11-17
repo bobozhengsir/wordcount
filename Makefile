@@ -1,20 +1,18 @@
 CC=gcc
 CFLAGS=-I. -Wall
-WORD_MAN_DEPS = word_manage.h word_manage_p.h
+DEPS = get_word.h word_manage.h word_manage_p.h
+OBJ = get_word.o initialize.o add_word.o \
+      dump_word.o finalize.o main.o
 
-get_word: get_word.c get_word.h
+%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-word_man: initialize.c add_word.c dump_word.c \
-		finalize.c $(WORD_MAN_DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-word_count: get_word.o word_man.o 
-	$(CC) -c -o $@ $< $(CFLAGS)
+wordcount: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean
 
 clean:
 	@echo "clean project"
-	rm *.o
+	-rm *.o
 	@echo "clean complete"

@@ -6,7 +6,7 @@
  **************************************************/
 void dump_word(FILE *fp)
 {
-	Word *temp;
+	Word *pos;
 
 	for (pos = word_header; pos != NULL; pos = pos->next) {
 		fprintf(fp, "%-20s%5d\n",
